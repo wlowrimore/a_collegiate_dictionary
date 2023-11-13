@@ -1,13 +1,13 @@
 'use client'
 
 import { useState, useEffect } from 'react';
-
+const API_KEY = process.env.NEXT_PUBLIC_DICT_API_KEY
 const WordMeaning = () => {
   const [terms, setTerms] = useState([])
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch('https://www.dictionaryapi.com/api/v3/references/collegiate/json/bourgeois?key=98d5b6b8-b545-48e7-8b1f-6b002e720ca3');
+      const res = await fetch(`https://www.dictionaryapi.com/api/v3/references/collegiate/json/bourgeois?key=${API_KEY}`);
       const data = await res.json();
       console.log(data);
       setTerms(data)
