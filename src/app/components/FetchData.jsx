@@ -3,101 +3,105 @@
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 const API_KEY = process.env.NEXT_PUBLIC_DICT_API_KEY
+const BASE_URL = 'https://www.dictionaryapi.com/api/v3/references/collegiate/json'
 
 const WordMeaning = () => {
-  const [terms, setTerms] = useState([])
   const [query, setQuery] = useState('')
-
-
-
-  // useEffect(() => {
-  //   const handleSearch = async (query) => {
-  //     const res = await fetch(`https://www.dictionaryapi.com/api/v3/references/collegiate/json/${query}?key=${API_KEY}`);
-  //     const data = await res.json();
-  //     setTerms(data)
-  //   }
-  //   handleSearch()
-  // }, [])
+  const [entry, setEntry] = useState(null);
 
   const handleSearch = async () => {
     try {
-      const res = await fetch(`https://www.dictionaryapi.com/api/v3/references/collegiate/json/${query}?key=${API_KEY}`)
-
+      const res = await fetch(`${BASE_URL}/${query}?key=${API_KEY}`)
       const data = await res.json();
-      console.log(data);
-      setTerms(data)
 
-      setQuery('')
+      console.log(data);
+
+      if (Array.isArray(data) && data.length > 0) {
+        setEntry(data[0])
+      } else {
+        setQuery(null)
+      }
     } catch (error) {
       console.log('An error has occurred:', error.message)
-      setTerms(['Error retrieving the definition'])
+      setTerm(null)
     }
   }
 
+  const artCaption = entry?.art?.capt?.replace(/{it}/g, '').replace(/{\/it}/g, '')
 
-  const termDef = terms?.map((term, index) => {
-    return term.shortdef
-  })
-
-  const combinedArray = termDef.flatMap((str) => {
-    if (typeof str === 'string') {
-      return str.split(',');
-    } else {
-      return [str];
-    }
-  })
 
   return (
-    <div className=''>
-      <section className='lg:w-2/3 flex justify-center mx-auto mb-12 gap-3'>
-
+    <div className='w-full'>
+      <section className='flex mb-12 mx-auto gap-3 justify-center'>
         <input
           type='text'
           placeholder='search'
+          value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className='h-3rem w-full border bordeer-green-400 rounded-md outline-none placeholder:text-neutral-400 focus:border-gray-400 px-1 text-gray-950 text-xl tracking-wide'
+          className='h-[2rem] lg:w-1/3 border bordeer-green-400 rounded-md outline-none placeholder:text-neutral-400 focus:border-gray-400 px-1 text-gray-950 text-xl tracking-wide'
         />
-        <button onClick={handleSearch}>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12 border border-white rounded-lg text-white bg-sky-600 font-semibold hover:bg-white hover:text-sky-600 hover:scale-95 transform duration-300 active:outline-none">
+        <button onClick={handleSearch} className='h-[2rem] flex px-2 gap-1 items-center border border-white rounded-lg text-white bg-sky-600 font-semibold hover:bg-white hover:text-sky-600 hover:scale-95 transform duration-300 active:outline-none'>
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
             <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
           </svg>
+          Search
         </button>
-
       </section>
-      {terms?.map((term, termsIndex) => (
-        <div key={termsIndex} className='flex flex-col justify-center'>
 
-          {term.meta &&
-            <>
-              <div className='flex gap-3'>
-                <h1 className='text-3xl text-blue-300'>Entry:</h1>
-                <h1 className='text-3xl text-orange-300'>{term.meta.id}<span className='ml-2 text-lg text-blue-100 tracking-wider'>({term.hwi.hw})</span></h1>
-
-              </div>
-              {term.et &&
-                <div className='mt-2 mb-4 text-rose-300/70 gap-2 w-full flex italic'>
-                  <p className=''>etymology:</p>
-                  <p className='text-sm tracking-wide mt-1'>{term.et}</p>
+      <section className='w-full flex mx-auto'>
+        {entry?.meta?.id && (
+          <div className='flex flex-col items-center w-full'>
+            {/* entry word and etymology */}
+            <div className='flex flex-col items-start mb-6 w-full mx-auto'>
+              <h1 className='text-4xl text-orange-300'>
+                {entry.meta.id}
+                <span className='ml-2 text-lg text-blue-100 tracking-wider'>({entry.hwi.hw})</span>
+              </h1>
+              {entry?.et && (
+                <div>
+                  <p className='text-blue-200 font-light italic tracking-wide'>Etymology - <span className='text-rose-200'>{entry.et}</span></p>
                 </div>
-              }
-              <Image src='https://www.merriam-webster.com/assets/mw/static/art/dict/bird.gif' alt='' width={400} height={300} className='rounded-lg my-2' />
-              <div className='flex flex-col my-4 justify-center space-y-6'>
-                {combinedArray?.map((definition, comboIndex) => (
-                  <div key={comboIndex} className='flex gap-2'>
-                    <h1 className='text-lg tracking-wide text-neutral-300'>Definition:</h1>
-                    <h1 className='text-lg tracking-wide text-blue-200'>{definition}</h1>
+              )}
+              <div className='bg-neutral-300/20 h-[1px] w-full mt-6' />
+            </div>
+
+
+            {/* image and definition(s) */}
+            <div className='grid grid-cols-2 w-full mb-3'>
+              {entry?.art && artCaption ? (
+                <div className='w-full flex gap-6'>
+                  <div className='w-full flex justify-center'>
+                    <Image src={`https://www.merriam-webster.com/assets/mw/static/art/dict/${entry.art.artid}.gif`} alt='' width={400} height={300} className='rounded-lg my-2' />
                   </div>
-                ))}
+                  <div className='flex justify-center'>
+                    <p className='w-[400px] text-justify'>{artCaption}</p>
+                  </div>
+                </div>
+              ) : (
+                <div className='flex items-center justify-center w-[400px] h-[300px] bg-neutral-600 border border-neutral-300 rounded-lg text-3xl'>Image not available</div>
+              )}
+            </div>
+            <div className='w-full'>
+              <div className='mb-3 ring-offset-2 bg-transparent rounded-lg w-fit border border-neutral-500 hover:bg-white/40 hover:text-black hover:rounded-full hover:scale-110 transform transition-all duration-200  ease-in cursor-pointer'>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 p-1">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75z" />
+                </svg>
               </div>
-            </>
-          }
-        </div>
-      ))}
-      <div className='h-[32rem] flex justify-center items-center text-6xl text-red-400 animate-pulse'>
-
-        <h1>word not found in dictionary</h1>
-
-      </div>
+              {entry.shortdef.map((definition, defIndex) => (
+                <div className='flex gap-2 text-justify'>
+                  <p className='text-orange-300'>{defIndex + 1}.</p>
+                  <p key={defIndex} className='text-blue-50 text-justify'>{definition}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+        {!entry?.meta?.id && (
+          <div className='text-red-400 text-4xl text-center w-full animate-pulse'>
+            <h1>Entry not found in dictionary</h1>
+          </div>
+        )}
+      </section>
     </div>
   )
 }
