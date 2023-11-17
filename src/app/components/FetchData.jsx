@@ -1,47 +1,78 @@
 'use client'
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AudioPlayer from './AudioPlayer';
+import Four0Four from './ui/four0four';
 
 const API_KEY = process.env.NEXT_PUBLIC_DICT_API_KEY
 const BASE_URL = 'https://www.dictionaryapi.com/api/v3/references/collegiate/json'
 
 const WordMeaning = () => {
-  const [query, setQuery] = useState('')
-  const [entry, setEntry] = useState(null);
+  const [query, setQuery] = useState('');
+  const [entry, setEntry] = useState('');
+  const [queryErrMsg, setQueryErrMsg] = useState('');
+  const [queryEntryMsg, setQueryEntryMsg] = useState('');
+  const [extractedQuery, setExtractedQuery] = useState('');
 
   const handleSearch = async () => {
     try {
       const res = await fetch(`${BASE_URL}/${query}?key=${API_KEY}`)
       const data = await res.json();
+
       if (Array.isArray(data) && data.length > 0) {
-        setEntry(data[0])
+        setEntry(data[0]);
+        setQueryErrMsg('');
+        setQueryEntryMsg('');
       } else {
-        setQuery(null)
+        const errorMessage = `Sorry...${query} was not found.`
+        setEntry('');
+        setQueryErrMsg(errorMessage);
+        setQueryEntryMsg('');
+
+        // Extract {query} from error message to pass in props to child component
+
+        const extractedQuery = errorMessage.match(/Sorry\.\.\.(.*) was not found\./)?.[1];
+        setExtractedQuery(extractedQuery);
       }
     } catch (error) {
-      console.log('An error has occurred:', error.message)
-      setTerm(null)
+      console.error('an error has occured.', error.message)
+      setQuery('')
+      setQueryErrMsg('Please enter a valid search term.');
+      setQueryEntryMsg('');
     }
-  }
+    setQuery('')
+  };
+
+  useEffect(() => {
+    setQueryEntryMsg(!query ? 'Please enter your search term.' : '');
+  }, [query]);
 
   console.log(entry);
 
   const artCaption = entry?.art?.capt?.replace(/{it}/g, '').replace(/{\/it}/g, '')
 
-  const entryDate = entry?.date?.replace(/{ds\|\|1\|a\|}/g, '').replace(/{ds\|\|[0-9]\|[a-z]\|}/g, '')
+  const entryDate = entry?.date?.replace(/{ds\|\|[^}]+\|}/g, '');
 
   return (
     <div className='w-full'>
       <section className='flex mb-12 mx-auto gap-3 justify-center'>
-        <input
-          type='text'
-          placeholder='search'
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          className='h-[2rem] lg:w-1/3 border bordeer-green-400 rounded-md outline-none placeholder:text-neutral-400 focus:border-gray-400 px-1 text-gray-950 text-xl tracking-wide'
-        />
+        <div className='flex flex-col'>
+          <input
+            type='text'
+            placeholder='search'
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            className='h-[2rem] border bordeer-green-400 rounded-md outline-none placeholder:text-neutral-400 focus:border-gray-400 px-1 text-gray-950 text-xl tracking-wide'
+          />
+          {queryErrMsg && (
+            <div className='text-rose-300'>{queryErrMsg}</div>
+          )}
+          {queryEntryMsg && !queryErrMsg && (
+            <div>{queryEntryMsg}</div>
+          )}
+
+        </div>
         <button onClick={handleSearch} className='h-[2rem] flex px-2 gap-1 items-center border border-white rounded-lg text-white bg-sky-600 font-semibold hover:bg-white hover:text-sky-600 hover:scale-95 transform duration-300 active:outline-none'>
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
             <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
@@ -50,7 +81,7 @@ const WordMeaning = () => {
         </button>
       </section>
       <section className='w-full flex mx-auto'>
-        {entry?.meta?.id && (
+        {entry?.meta?.id ? (
           <div className='flex flex-col items-center w-full'>
             {/* entry word and etymology */}
             <div className='flex flex-col items-start mb-6 w-full mx-auto'>
@@ -64,7 +95,9 @@ const WordMeaning = () => {
                 ))}
               </div>
               <div>
-                <p className='text-teal-200 text-sm mb-4'>First Known Use:&nbsp;{entryDate}</p>
+                {entryDate && (
+                  <p className='text-teal-200 text-sm mb-4'>First Known Use:&nbsp;{entryDate}</p>
+                )}
               </div>
               {entry?.et && (
                 <div>
@@ -98,10 +131,11 @@ const WordMeaning = () => {
               ))}
             </div>
           </div>
-        )}
-        {!entry?.meta?.id && (
-          <div className='text-red-400 text-4xl text-center w-full animate-pulse'>
-            <h1>Entry not found in dictionary</h1>
+        ) : (
+          <div className='flex flex-col w-full items-center my-24'>
+            <Four0Four
+              extractedQuery={extractedQuery}
+            />
           </div>
         )}
       </section>

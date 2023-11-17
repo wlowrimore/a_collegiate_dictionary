@@ -9,7 +9,7 @@ const AudioPlayer = ({ entry }) => {
 
   let entryAudio = entry?.hwi?.prs[0]?.sound?.audio
   useEffect(() => {
-    if (entryAudio) {
+    if (Array.isArray(entryAudio) && entryAudio.length > 0) {
       if (/^[0-9]/.test(entryAudio)) {
         setSubDir('number');
       } else if (entryAudio.startsWith('gg')) {

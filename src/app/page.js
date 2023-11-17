@@ -2,12 +2,9 @@ import Link from "next/link"
 
 export default function Home() {
   return (
-    <main className='flex flex-col justify-center text-justify mx-[32rem] my-12'>
-      {/* <articl className='mb-16'>
-         Sapien et ligula ullamcorper malesuada. Aliquam malesuada bibendum arcu vitae elementum curabitur vitae nunc sed. Nisi scelerisque eu ultrices vitae auctor eu augue. Dui id ornare arcu odio ut sem. Aliquam ultrices sagittis orci a scelerisque. Urna id volutpat lacus laoreet. Sed viverra ipsum nunc aliquet bibendum enim facilisis gravida. Quis auctor elit sed vulputate mi sit amet mauris commodo. Nisl vel pretium lectus quam id.
-      </articl> */}
-      <div className='flex justify-end gap-10'>
-        <div className='relative w-[24rem] h-[32rem] border-2 border-white rounded-lg'>
+    <main className='flex flex-col justify-center text-justify px-[32rem] my-12'>
+      <div className='flex justify-center gap-10'>
+        <div className='relative min-w-[24rem] min-h-[32rem] border-2 border-white rounded-lg'>
           <div
             className='w-fit py-1 px-2 border border-white bg-blue-800 text-white text-lg rounded-tl-sm'>
             Dictionary
@@ -24,7 +21,7 @@ export default function Home() {
           </Link>
         </div>
 
-        <div className='relative w-[24rem] h-[32rem] border-2 border-white rounded-lg'>
+        <div className='relative xl:min-w-[27rem] min-w-[24rem] min-h-[32rem] border-2 border-white rounded-lg'>
           <div
             className='w-fit py-1 px-2 border border-white bg-amber-700 text-white text-lg rounded-tl-sm'>
             Thesaurus
