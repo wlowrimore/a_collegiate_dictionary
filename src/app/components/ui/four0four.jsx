@@ -8,6 +8,7 @@ const Four0Four = ({ extractedQuery }) => {
       </div>
       <h2 className='pb-2 text-center text-2xl'>Oops! Nothing was found</h2>
       <p className='pb-4 text-justify'>It seems as though the entry ({extractedQuery}) you are looking for was not found in this dictionary.</p>
+
       <p className='text-xs'>If you feel this error to be a mistake, please&nbsp;<Link href='/' className='text-blue-300 hover:underline'>report the issue</Link>&nbsp;and we will gladly investigate it.</p>
 
 
