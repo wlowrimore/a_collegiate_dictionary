@@ -2,7 +2,7 @@ import Image from "next/image"
 
 const PagePlaceholder = () => {
   return (
-    <div className='flex w-full gap-8 justify-center pt-32'>
+    <div className='flex w-full gap-8 justify-center pt-24'>
       <div className='flex flex-col w-1/3'>
         <h2 className='text-5xl font-bold'>Welcome to the Collegiate Resource Hub Dictionary Page.</h2>
         <p className='text-2xl font-semibold text-justify mt-2'>This collegiate dictionary is a product of the Merriam-Webster Inc Open Source API.</p>
