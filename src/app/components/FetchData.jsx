@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import AudioPlayer from './AudioPlayer';
 import Four0Four from './ui/four0four';
 import PagePlaceholder from './ui/PagePlaceholder';
+import DefSearchForm from './ui/search-forms/DefSearchForm';
 
 const API_KEY = process.env.NEXT_PUBLIC_DICT_API_KEY
 const BASE_URL = 'https://www.dictionaryapi.com/api/v3/references/collegiate/json'
@@ -62,29 +63,13 @@ const WordMeaning = () => {
 
   return (
     <div className='w-full'>
-      <section className='flex mb-12 mx-auto gap-3 justify-center'>
-        <div className='flex flex-col'>
-          <input
-            type='text'
-            placeholder='search'
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            className='h-[2rem] border bordeer-green-400 rounded-md outline-none placeholder:text-neutral-400 focus:border-gray-400 px-1 text-gray-950 text-xl tracking-wide'
-          />
-          {queryErrMsg && (
-            <div className='text-rose-300'>{queryErrMsg}</div>
-          )}
-          {queryEntryMsg && !queryErrMsg && (
-            <div>{queryEntryMsg}</div>
-          )}
-        </div>
-        <button onClick={handleSearch} className='h-[2rem] flex px-2 gap-1 items-center border border-white rounded-lg text-white bg-sky-600 font-semibold hover:bg-white hover:text-sky-600 hover:scale-95 transform duration-300 active:outline-none'>
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
-          </svg>
-          Search
-        </button>
-      </section>
+      <DefSearchForm
+        setQuery={setQuery}
+        queryErrMsg={queryErrMsg}
+        queryEntryMsg={queryEntryMsg}
+        query={query}
+        handleSearch={handleSearch}
+      />
       <section className='w-full flex mx-auto'>
         {isQueryNotFound ? (
           <div className='flex flex-col w-full items-center my-12'>
