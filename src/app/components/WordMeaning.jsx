@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import AudioPlayer from './AudioPlayer';
 import Four0Four from './ui/four0four';
-import PagePlaceholder from './ui/PagePlaceholder';
+import DictPagePlaceholder from './ui/DictPagePlaceholder';
 import DefSearchForm from './ui/search-forms/DefSearchForm';
 
 const API_KEY = process.env.NEXT_PUBLIC_DICT_API_KEY
@@ -129,7 +129,7 @@ const WordMeaning = () => {
               </div>
             </div>
           ) : (
-            <PagePlaceholder />
+            <DictPagePlaceholder />
           )
         )}
       </section>

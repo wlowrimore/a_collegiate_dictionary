@@ -1,12 +1,14 @@
 import React from 'react'
-import WordMeaning from '../components/WordMeaning'
+import WordSyn from '../components/WordSyn'
 
-export default function DictionaryPage() {
+const Thesaurus = () => {
   return (
     <div className='flex flex-col'>
       <div className='container flex justify-center mx-auto my-12'>
-        <WordMeaning />
+        <WordSyn />
       </div>
     </div>
   )
 }
+
+export default Thesaurus
