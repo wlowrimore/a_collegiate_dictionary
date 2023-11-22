@@ -16,6 +16,6 @@ This is an on-going project and is in its infant stages with a few issues still 
 <img src='public/images/errorPage.webp' alt='collegiate-resource-hub' />
 <img src='public/images/issueForm.webp' alt='collegiate-resource-hub' />
 
-[send me an email](mail://fakenamedev@gmail.com)<br />
+[send me an email](mailto://fakenamedev@gmail.com)<br />
 [reach out on LinkedIn](https://www.linkedin.com/in/william-lowrimore-dev)<br />
 [check out my portfolio](https://www.williamlowrimore.com)
