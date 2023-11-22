@@ -52,7 +52,7 @@ const WordMeaning = () => {
     setQueryEntryMsg(!query ? 'Please enter your search term.' : '');
   }, [query]);
 
-  // console.log(entry);
+  console.log(entry);
 
   const hasEntry = entry?.meta?.id;
 
@@ -82,9 +82,9 @@ const WordMeaning = () => {
             <div className='flex flex-col items-center w-full'>
               {/* entry word and etymology */}
               <div className='flex flex-col items-start mb-6 w-full mx-auto'>
-                <h1 className='text-4xl text-orange-300'>
+                <h1 className='text-4xl text-orange-300 capitalize'>
                   {entry.meta.stems[0]}
-                  <span className='ml-2 text-lg text-blue-100 tracking-wider'>({entry.hwi.hw})</span>
+                  <span className='ml-2 text-lg text-blue-100 tracking-wider lowercase'>({entry.hwi.hw})</span>
                 </h1>
                 <div className='flex w-full gap-1 mb-4'>
                   {entry?.uros?.map((uro, urosIndex) => (
@@ -101,8 +101,9 @@ const WordMeaning = () => {
                     <p className='text-blue-200 font-light italic tracking-wide'>Etymology - <span className='text-rose-200'>{entry.et}</span></p>
                   </div>
                 )}
+                {/* Audio */}
                 <AudioPlayer entry={entry} />
-                <div className='bg-neutral-300/20 h-[1px] w-full mt-6' />
+                <div className='bg-neutral-300/20 h-[1px] w-full' />
               </div>
               {/* image and definition(s) */}
               <div className='grid grid-cols-2 w-full mb-3'>
@@ -116,7 +117,7 @@ const WordMeaning = () => {
                     </div>
                   </div>
                 ) : (
-                  <div className='flex items-center justify-center w-[400px] h-[300px] bg-neutral-600 border border-neutral-300 rounded-lg text-3xl'>Image not available</div>
+                  null
                 )}
               </div>
               <div className='w-full'>
