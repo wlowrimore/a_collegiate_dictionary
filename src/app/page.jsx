@@ -21,8 +21,9 @@ export default function Home(width, autoplay, src) {
             className='w-100 mx-auto opacity-30'
           />
         </div>
+        {/* buttons */}
         <div className='w-[36rem] flex gap-6 mx-auto relative z-10 bottom-[42%]'>
-          <div className='hover:w-screen hover:text-center'>
+          <div className='flex-1 hover:w-screen hover:text-center'>
             <Link
               href='/dictionary'
               className='transform py-1 px-3 border border-neutral-200 rounded-tr-xl rounded-bl-xl rounded-tl-sm rounded-br-sm bg-blue-500/70 text-2xl w-full flex items-center gap-8 hover:w-[100%] hover:pl-[5.5rem] hover:bg-blue-600/50 hover:border hover:border-white transition-all duration-500'>
@@ -37,7 +38,7 @@ export default function Home(width, autoplay, src) {
           <div className=''>
             <Link
               href='/thesaurus'
-              className='transform py-1 px-3 border border-neutral-200 rounded-tr-xl rounded-bl-xl rounded-tl-sm rounded-br-sm bg-amber-700/70 text-2xl w-full flex items-center gap-9 hover:w-[125%] hover:pl-[5.5rem] hover:bg-amber-700/50 hover:border hover:border-white transition-all duration-500'>
+              className='transform py-1 px-3 border border-neutral-200 rounded-tr-xl rounded-bl-xl rounded-tl-sm rounded-br-sm bg-amber-700/70 text-2xl w-full flex items-center gap-9 hover:w-[100%] hover:pl-[5.5rem] hover:pr-[5.5rem] hover:bg-amber-700/50 hover:border hover:border-white transition-all duration-500'>
               Thesaurus
               <span className=''>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
