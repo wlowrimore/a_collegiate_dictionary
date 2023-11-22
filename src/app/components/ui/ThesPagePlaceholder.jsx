@@ -11,7 +11,7 @@ const ThesPagePlaceholder = () => {
         <p className='text-2xl font-semibold text-justify mt-2'>This collegiate dictionary is a product of the Merriam-Webster Inc Open Source API.</p>
         <p className='mt-2 text-sm'>All of the data rendered is provided by the API. Not all data will include an image, image context, etymology, or audio.</p>
       </div>
-      <Link href='https://www.mirram-webster.com' className='flex flex-col'>
+      <Link href='https://www.merriam-webster.com' target='_blank' rel='noopenter noreferrer' className='flex flex-col'>
         <Image
           src='/Merriam-Webster_logo.svg.png'
           alt='merriam-webster logo'

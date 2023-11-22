@@ -23,7 +23,7 @@ const Four0Four = ({ extractedQuery }) => {
       <h2 className='pb-2 text-center text-2xl'>Oops! Nothing was found</h2>
       <p className='pb-4 text-justify'>It seems as though the entry ({extractedQuery}) you are looking for was not found in this dictionary.</p>
 
-      <button onClick={handleReportIssueClick}>Modal</button>
+      {/* <button onClick={handleReportIssueClick}>Modal</button> */}
 
       <p className='text-xs'>
         If you feel this error to be a mistake, please&nbsp;
