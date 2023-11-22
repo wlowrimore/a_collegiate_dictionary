@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import ThesSearchForm from "./ui/search-forms/ThesSearchForm"
 import Four0Four from "./ui/four0four";
 import ThesPagePlaceholder from "./ui/ThesPagePlaceholder";
+import MobileHeader from "./MobileHeader";
 
 const API_KEY = process.env.NEXT_PUBLIC_THES_API_KEY
 const BASE_URL = 'https://www.dictionaryapi.com/api/v3/references/thesaurus/json/'
@@ -70,14 +71,19 @@ const WordSyn = () => {
   console.log('entry:', entry);
 
   return (
-    <div className='flex flex-col mx-auto '>
-      <ThesSearchForm
-        setQuery={setQuery}
-        queryErrMsg={queryErrMsg}
-        queryEntryMsg={queryEntryMsg}
-        query={query}
-        handleSearch={handleSearch}
-      />
+    <div className='flex flex-col mx-auto'>
+      <div className='hidden md:block'>
+        <ThesSearchForm
+          setQuery={setQuery}
+          queryErrMsg={queryErrMsg}
+          queryEntryMsg={queryEntryMsg}
+          query={query}
+          handleSearch={handleSearch}
+        />
+      </div>
+      <div className='md:hidden flex flex-col'>
+        <MobileHeader />
+      </div>
       <section className='w-full flex mx-auto'>
         {isQueryNotFound ? (
           <div className='flex flex-col w-full items-center my-12'>

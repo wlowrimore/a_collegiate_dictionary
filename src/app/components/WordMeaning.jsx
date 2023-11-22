@@ -6,11 +6,13 @@ import AudioPlayer from './AudioPlayer';
 import Four0Four from './ui/four0four';
 import DictPagePlaceholder from './ui/DictPagePlaceholder';
 import DefSearchForm from './ui/search-forms/DefSearchForm';
+import MobileSearchForm from './ui/search-forms/DictMobileSearchForm';
+import MobileHeader from './MobileHeader';
 
 const API_KEY = process.env.NEXT_PUBLIC_DICT_API_KEY
 const BASE_URL = 'https://www.dictionaryapi.com/api/v3/references/collegiate/json'
 
-const WordMeaning = () => {
+const WordMeaning = ({ isSearchVisible }) => {
   const [query, setQuery] = useState('');
   const [entry, setEntry] = useState('');
   const [queryErrMsg, setQueryErrMsg] = useState('');
@@ -62,14 +64,19 @@ const WordMeaning = () => {
   const isQueryNotFound = queryErrMsg || !queryEntryMsg && !query;
 
   return (
-    <div className='w-full'>
-      <DefSearchForm
-        setQuery={setQuery}
-        queryErrMsg={queryErrMsg}
-        queryEntryMsg={queryEntryMsg}
-        query={query}
-        handleSearch={handleSearch}
-      />
+    <div className='flex flex-col mx-auto'>
+      <div className='hidden md:block'>
+        <DefSearchForm
+          setQuery={setQuery}
+          queryErrMsg={queryErrMsg}
+          queryEntryMsg={queryEntryMsg}
+          query={query}
+          handleSearch={handleSearch}
+        />
+      </div>
+      <div className='md:hidden flex flex-col'>
+        <MobileHeader />
+      </div>
       <section className='w-full flex mx-auto'>
         {isQueryNotFound ? (
           <div className='flex flex-col w-full items-center my-12'>

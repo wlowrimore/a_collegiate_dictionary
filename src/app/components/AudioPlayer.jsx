@@ -43,7 +43,8 @@ const AudioPlayer = ({ entry, id }) => {
       {entryAudio && (
         <div className='mt-2 mb-3'>
           <audio id='pronunciation-audio'
-            src={audioUrl}>
+            src={audioUrl}
+          >
           </audio>
           <button onClick={playAudio}><AudioButton /></button>
         </div>

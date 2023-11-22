@@ -9,7 +9,7 @@ export default function Header() {
 
   return (
     !isHomePage && (
-      <div className='flex flex-col mx-auto items-center py-12 px-4 lg:px-[5rem]'>
+      <div className='hidden md:flex flex-col mx-auto items-center py-12 px-4 lg:px-[5rem]'>
         <div className=''>
           <div className='w-full bg-neutral-300 h-[1px]' />
           <div className='w-full flex justify-center items-center space-y-2'>
