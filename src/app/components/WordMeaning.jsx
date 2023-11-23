@@ -8,11 +8,12 @@ import DictPagePlaceholder from './ui/DictPagePlaceholder';
 import DefSearchForm from './ui/search-forms/DefSearchForm';
 import MobileSearchForm from './ui/search-forms/DictMobileSearchForm';
 import MobileHeader from './MobileHeader';
+import DictMobileSearchForm from './ui/search-forms/DictMobileSearchForm';
 
 const API_KEY = process.env.NEXT_PUBLIC_DICT_API_KEY
 const BASE_URL = 'https://www.dictionaryapi.com/api/v3/references/collegiate/json'
 
-const WordMeaning = ({ isSearchVisible }) => {
+const WordMeaning = () => {
   const [query, setQuery] = useState('');
   const [entry, setEntry] = useState('');
   const [queryErrMsg, setQueryErrMsg] = useState('');
@@ -64,7 +65,7 @@ const WordMeaning = ({ isSearchVisible }) => {
   const isQueryNotFound = queryErrMsg || !queryEntryMsg && !query;
 
   return (
-    <div className='flex flex-col mx-auto'>
+    <div className='flex flex-col overflow-y-auto mb-[4rem]'>
       <div className='hidden md:block'>
         <DefSearchForm
           setQuery={setQuery}
@@ -75,7 +76,13 @@ const WordMeaning = ({ isSearchVisible }) => {
         />
       </div>
       <div className='md:hidden flex flex-col'>
-        <MobileHeader />
+        <MobileHeader
+          setQuery={setQuery}
+          queryErrMsg={queryErrMsg}
+          queryEntryMsg={queryEntryMsg}
+          query={query}
+          handleSearch={handleSearch}
+        />
       </div>
       <section className='w-full flex mx-auto'>
         {isQueryNotFound ? (
@@ -88,12 +95,12 @@ const WordMeaning = ({ isSearchVisible }) => {
           entry?.meta?.id ? (
             <div className='flex flex-col items-center w-full'>
               {/* entry word and etymology */}
-              <div className='flex flex-col items-start mb-6 w-full mx-auto'>
+              <div className='flex flex-col items-start mb-6 w-full mx-auto px-4'>
                 <h1 className='text-4xl text-orange-300 capitalize'>
                   {entry.meta.stems[0]}
                   <span className='ml-2 text-lg text-blue-100 tracking-wider lowercase'>({entry.hwi.hw})</span>
                 </h1>
-                <div className='flex w-full gap-1 mb-4'>
+                <div className='flex flex-wrap w-full gap-1 mb-4'>
                   {entry?.uros?.map((uro, urosIndex) => (
                     <p key={urosIndex} className='text-sm'><em>{uro.ure}</em>&nbsp;&nbsp;|</p>
                   ))}
@@ -113,25 +120,26 @@ const WordMeaning = ({ isSearchVisible }) => {
                 <div className='bg-neutral-300/20 h-[1px] w-full' />
               </div>
               {/* image and definition(s) */}
-              <div className='grid grid-cols-2 w-full mb-3'>
+              <div className='flex flex-col md:grid grid-cols-2 w-full mb-3'>
                 {entry?.art && artCaption ? (
-                  <div className='w-full flex gap-6'>
+                  <div className='w-full flex flex-col xl:flex-row gap-6 px-4'>
                     <div className='w-full flex justify-center'>
                       <Image src={`https://www.merriam-webster.com/assets/mw/static/art/dict/${entry.art.artid}.gif`} alt='' width={400} height={300} className='rounded-lg my-2' />
                     </div>
                     <div className='flex justify-center'>
-                      <p className='w-[400px] text-justify'>{artCaption}</p>
+                      <p className='w-[400px]'>{artCaption}</p>
                     </div>
                   </div>
                 ) : (
                   null
                 )}
               </div>
-              <div className='w-full'>
+              <div className='flex flex-wrap md:flex-col md:flex-start md:w-full px-4'>
+                <h3 className='text-lg text-blue-300 mt-4 mb-2'>Definition(s)</h3>
                 {entry.shortdef.map((definition, defIndex) => (
-                  <div key={defIndex} className='flex gap-2 text-justify'>
+                  <div key={defIndex} className='flex gap-2'>
                     <p className='text-orange-300'>{defIndex + 1}.</p>
-                    <p className='text-blue-50 text-justify'>{definition}</p>
+                    <p className='text-blue-50 mb-2'>{definition}</p>
                   </div>
                 ))}
               </div>
