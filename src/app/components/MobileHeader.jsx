@@ -65,7 +65,14 @@ const MobileHeader = ({
         />
       )}
       {isSearchVisible && isThesaurusRoute && (
-        <ThesMobileSearchForm />
+        <ThesMobileSearchForm
+          setQuery={setQuery}
+          queryErrMsg={queryErrMsg}
+          queryEntryMsg={queryEntryMsg}
+          query={query}
+          handleSearch={handleSearch}
+          setIsSearchVisible={setIsSearchVisible}
+        />
       )}
     </div>
   )

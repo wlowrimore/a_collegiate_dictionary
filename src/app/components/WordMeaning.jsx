@@ -96,9 +96,9 @@ const WordMeaning = () => {
             <div className='flex flex-col items-center w-full'>
               {/* entry word and etymology */}
               <div className='flex flex-col items-start mb-6 w-full mx-auto px-4'>
-                <h1 className='text-4xl text-orange-300 capitalize'>
+                <h1 className='flex flex-col md:flex-row md:items-end text-4xl text-orange-300 capitalize'>
                   {entry.meta.stems[0]}
-                  <span className='ml-2 text-lg text-blue-100 tracking-wider lowercase'>({entry.hwi.hw})</span>
+                  <span className='md:ml-2 text-lg text-blue-100 tracking-wider lowercase'>({entry.hwi.hw})</span>
                 </h1>
                 <div className='flex flex-wrap w-full gap-1 mb-4'>
                   {entry?.uros?.map((uro, urosIndex) => (
@@ -134,7 +134,7 @@ const WordMeaning = () => {
                   null
                 )}
               </div>
-              <div className='flex flex-wrap md:flex-col md:flex-start md:w-full px-4'>
+              <div className='flex flex-wrap flex-col md:flex-start md:w-full px-4'>
                 <h3 className='text-lg text-blue-300 mt-4 mb-2'>Definition(s)</h3>
                 {entry.shortdef.map((definition, defIndex) => (
                   <div key={defIndex} className='flex gap-2'>

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useRef, useEffect } from 'react'
 import RefreshButton from '../RefreshButton'
 
 const DictMobileSearchForm = ({
@@ -12,6 +12,12 @@ const DictMobileSearchForm = ({
   handlePageRefresh,
   setIsSearchVisible,
 }) => {
+
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, [])
 
   const handleSubmit = () => {
     handleSearch();
@@ -25,8 +31,8 @@ const DictMobileSearchForm = ({
           <p className='w-fit py-1 px-3 text-start text-lg text-white font-semibold tracking-wide bg-blue-500 rounded-tl-lg rounded-br-lg'>Search Dictionary</p>
         </div>
         <div className='flex flex-col px-4 py-12 w-full'>
-
           <input
+            ref={inputRef}
             type='text'
             placeholder='Search'
             value={query}

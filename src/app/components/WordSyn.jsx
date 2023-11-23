@@ -71,7 +71,7 @@ const WordSyn = () => {
   console.log('entry:', entry);
 
   return (
-    <div className='flex flex-col mx-auto'>
+    <div className='flex flex-col mx-auto mb-[4rem] max-w-full'>
       <div className='hidden md:block'>
         <ThesSearchForm
           setQuery={setQuery}
@@ -82,7 +82,13 @@ const WordSyn = () => {
         />
       </div>
       <div className='md:hidden flex flex-col'>
-        <MobileHeader />
+        <MobileHeader
+          setQuery={setQuery}
+          queryErrMsg={queryErrMsg}
+          queryEntryMsg={queryEntryMsg}
+          query={query}
+          handleSearch={handleSearch}
+        />
       </div>
       <section className='w-full flex mx-auto'>
         {isQueryNotFound ? (
@@ -93,15 +99,23 @@ const WordSyn = () => {
           </div>
         ) : (
           entry?.meta?.id ? (
-            <div className='flex flex-col items-center mx-auto gap-2 w-full'>
+            <div className='flex flex-col items-center px-4 mx-auto gap-2 w-full'>
               <div className='w-full text-start flex mt-4 mb-4'>
-                {entry.meta.stems.map((stem, stemsIndex) => (
-                  <ul key={stemsIndex} className='text-2xl flex text-orange-300'>
-                    <li className='capitalize'>{stem}&nbsp;|&nbsp;</li>
+                {entry.meta.stems.length > 1 ? (
+                  <ul className='text-sm md:text-lg lg:text-2xl flex flex-wrap text-orange-300'>
+                    {entry.meta.stems.map((stem, stemsIndex) => (
+                      <li key={stemsIndex} className='flex capitalize'>
+                        {stem}&nbsp;{stemsIndex < entry.meta.stems.length - 1 && '|'}&nbsp;
+                      </li>
+                    ))}
                   </ul>
-                ))}
+                ) : (
+                  <p className='text-lg md:text-2xl flex text-orange-300 capitalize'>
+                    {entry.meta.stems[0]}
+                  </p>
+                )}
               </div>
-              <div className='w-full flex justify-between'>
+              <div className='w-full flex flex-col md:flex-row justify-between'>
                 <div className='flex flex-col'>
                   {entry.shortdef.map((definition, defIndex) => (
                     <div key={defIndex} className='flex gap-2 text-justify'>
@@ -111,7 +125,7 @@ const WordSyn = () => {
                   ))}
                 </div>
                 {entry ? (
-                  <h3 className='flex text-2xl text-blue-300 font-bold tracking-wide capitalize items-center'>{entry?.fl}</h3>
+                  <h3 className='flex text-md tracking-wider md:text-2xl text-blue-300 font-bold md:tracking-wide capitalize items-center mt-4'>{entry?.fl}</h3>
                 ) : null}
               </div>
               <div className='mt-4'>
