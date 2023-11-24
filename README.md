@@ -12,11 +12,11 @@ Check out the live site [here](https://a-collegiate-dictionary.vercel.app/)
 <img src='public/images/landing.webp' alt='collegiate-resource-hub' />
 
 <img src='public/images/dictionary-1.webp' alt='collegiate-resource-hub' />
-<img src='public/images/dictionary_mobile.webp' alt='collegiate-resource-hub' />
+<img src='public/images/dictionary-mobile.webp' height='500' alt='collegiate-resource-hub' />
 <img src='public/images/dictionary-2.webp' alt='collegiate-resource-hub' />
 
 <img src='public/images/thesaurus-1.webp' alt='collegiate-resource-hub' />
-<img src='public/images/thesaurus_mobile_.webp' alt='collegiate-resource-hub' />
+<img src='public/images/thesaurus-mobile.webp' height='500' alt='collegiate-resource-hub' />
 <img src='public/images/thesaurus-2.webp' alt='collegiate-resource-hub' />
 
 <img src='public/images/errorPage.webp' alt='collegiate-resource-hub' />

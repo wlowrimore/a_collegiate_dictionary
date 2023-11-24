@@ -21,8 +21,6 @@ const WordSyn = () => {
       const res = await fetch(`${BASE_URL}/${query}?key=${API_KEY}`)
       const data = await res.json();
 
-      // console.log(data);
-
       if (Array.isArray(data) && data.length > 0) {
 
         setEntry(data[0]);
@@ -34,8 +32,7 @@ const WordSyn = () => {
         setQueryErrMsg(errorMessage);
         setQueryEntryMsg('');
 
-        // Extract {query} from error message to pass in props to child component
-
+        // Extract query (search word) from error message and then extract the first character of that query, as it is needed to render the correct subdirectory for the api endpoint.
         const extractedQuery = errorMessage.match(/Sorry\.\.\.(.*) was not found\./)?.[1];
         setExtractedQuery(extractedQuery);
       }
@@ -52,23 +49,12 @@ const WordSyn = () => {
     setQueryEntryMsg(!query ? 'Please enter your search term.' : '');
   }, [query]);
 
-  // console.log(entry);
-
   const hasEntry = entry?.meta?.id;
-
-  // const artCaption = entry?.art?.capt?.replace(/{it}/g, '').replace(/{\/it}/g, '')
   const entryDate = entry?.date?.replace(/{ds\|\|[^}]+\|}/g, '');
-
   const isQueryNotFound = queryErrMsg || !queryEntryMsg && !query;
 
   const synsArr = entry?.meta?.syns
   const antsArr = entry?.meta?.ants
-
-  console.log('ants:', antsArr);
-
-
-  // const entryTypeArray = entry?.fl
-  console.log('entry:', entry);
 
   return (
     <div className='flex flex-col mx-auto mb-[4rem] max-w-full'>

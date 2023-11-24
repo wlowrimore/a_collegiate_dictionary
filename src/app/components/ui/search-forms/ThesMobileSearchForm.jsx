@@ -44,7 +44,6 @@ const ThesMobileSearchForm = ({
           {queryEntryMsg && !queryErrMsg && (
             <div className='text-amber-700'>{queryEntryMsg}</div>
           )}
-
           {queryErrMsg ? (
             <RefreshButton handlePageRefresh={handlePageRefresh} />
           ) : (

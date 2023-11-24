@@ -6,9 +6,7 @@ import AudioPlayer from './AudioPlayer';
 import Four0Four from './ui/four0four';
 import DictPagePlaceholder from './ui/DictPagePlaceholder';
 import DefSearchForm from './ui/search-forms/DefSearchForm';
-import MobileSearchForm from './ui/search-forms/DictMobileSearchForm';
 import MobileHeader from './MobileHeader';
-import DictMobileSearchForm from './ui/search-forms/DictMobileSearchForm';
 
 const API_KEY = process.env.NEXT_PUBLIC_DICT_API_KEY
 const BASE_URL = 'https://www.dictionaryapi.com/api/v3/references/collegiate/json'
@@ -25,8 +23,6 @@ const WordMeaning = () => {
       const res = await fetch(`${BASE_URL}/${query}?key=${API_KEY}`)
       const data = await res.json();
 
-      console.log('API Response:', data);
-
       if (Array.isArray(data) && data.length > 0) {
         setEntry(data[0]);
         setQueryErrMsg('');
@@ -37,8 +33,7 @@ const WordMeaning = () => {
         setQueryErrMsg(errorMessage);
         setQueryEntryMsg('');
 
-        // Extract {query} from error message to pass in props to child component
-
+        // Extract query (search word) from error message and then extract the first character of that query, as it is needed to render the correct subdirectory for the api endpoint.
         const extractedQuery = errorMessage.match(/Sorry\.\.\.(.*) was not found\./)?.[1];
         setExtractedQuery(extractedQuery);
       }
@@ -54,8 +49,6 @@ const WordMeaning = () => {
   useEffect(() => {
     setQueryEntryMsg(!query ? 'Please enter your search term.' : '');
   }, [query]);
-
-  console.log(entry);
 
   const hasEntry = entry?.meta?.id;
 

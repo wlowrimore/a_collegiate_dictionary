@@ -45,7 +45,6 @@ const DictMobileSearchForm = ({
           {queryEntryMsg && !queryErrMsg && (
             <div className='text-sky-700'>{queryEntryMsg}</div>
           )}
-
           {queryErrMsg ? (
             <RefreshButton handlePageRefresh={handlePageRefresh} />
           ) : (

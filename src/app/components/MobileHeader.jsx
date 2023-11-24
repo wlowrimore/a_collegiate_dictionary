@@ -1,7 +1,7 @@
 'use client'
 
 import Link from "next/link"
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import DictMobileSearchForm from "./ui/search-forms/DictMobileSearchForm";
 import ThesMobileSearchForm from "./ui/search-forms/ThesMobileSearchForm";
 import { usePathname } from "next/navigation";
@@ -13,20 +13,18 @@ const MobileHeader = ({
   query,
   handleSearch
 }) => {
-  const [isSearchVisible, setIsSearchVisible] = useState(false);
-  const pathname = usePathname();
 
+  // Here I set visibility of the mobile search pop-up form 
+  const [isSearchVisible, setIsSearchVisible] = useState(false);
+
+  // then assign each route to a variable (this way I can render the correct search form and its data). --lines 55 and 65
+  const pathname = usePathname();
   const isDictionaryRoute = pathname === '/dictionary';
   const isThesaurusRoute = pathname === '/thesaurus';
 
   const handleVisibility = () => {
     setIsSearchVisible((isSearchVisible) => !isSearchVisible)
   }
-
-  useEffect(() => {
-    console.log('Search Visibility:', isSearchVisible);
-    console.log('Current Path:', pathname);
-  }, [isSearchVisible, pathname])
 
   return (
     <div className='md:hidden fixed z-1000 bottom-0 left-0 right-0 w-full bg-neutral-800 flex mx-auto py-2 px-4 justify-center'>
