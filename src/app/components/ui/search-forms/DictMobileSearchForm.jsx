@@ -43,7 +43,7 @@ const DictMobileSearchForm = ({
             <div className='text-rose-300'>{queryErrMsg}</div>
           )}
           {queryEntryMsg && !queryErrMsg && (
-            <div className='text-purple-700'>{queryEntryMsg}</div>
+            <div className='text-sky-700'>{queryEntryMsg}</div>
           )}
 
           {queryErrMsg ? (

@@ -42,7 +42,7 @@ const ThesMobileSearchForm = ({
             <div className='text-rose-300'>{queryErrMsg}</div>
           )}
           {queryEntryMsg && !queryErrMsg && (
-            <div className='text-purple-700'>{queryEntryMsg}</div>
+            <div className='text-amber-700'>{queryEntryMsg}</div>
           )}
 
           {queryErrMsg ? (

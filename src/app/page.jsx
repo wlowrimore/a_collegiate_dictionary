@@ -4,12 +4,6 @@ import VidPlayer from "./components/cloudinary/VidPlayer"
 export default function Home(width, autoplay, src) {
   return (
     <main className='w-screen h-screen flex flex-col md:justify-center items-center mx-auto'>
-      {/* mobile header */}
-      {/* <div className='md:hidden w-full flex flex-col px-6 mt-6 mb-10 space-y-2'>
-        <div className='w-full h-[1px] bg-neutral-300 rounded-2xl' />
-        <h1 className='w-full text-center text-2xl'>Collegiate Resource Hub</h1>
-        <div className='w-full h-[1px] bg-neutral-300 rounded-2xl' />
-      </div> */}
       <section className='pt-[6rem] md:mt-32 flex flex-col items-center'>
         <div className='w-[17rem] md:w-[36rem] md:mx-auto'>
           <h1 className='text-4xl text-sky-200 md:text-neutral-300 lg:text-5xl leading-tight md:leading-normal mb-2 md:mb-0'>Welcome to the Collegiate Resource Hub</h1>
@@ -55,7 +49,7 @@ export default function Home(width, autoplay, src) {
           </div>
         </div>
         {/* mobile buttons */}
-        <div className='md:hidden flex gap-3 text-sm mt-6 w-full flex-start px-6'>
+        <div className='md:hidden flex flex-col gap-4 text-sm mt-6 w-full flex-start px-6'>
           <Link href='/dictionary' className='flex gap-2 py-1 px-3 border-none text-lg font-semibold text-neutral-800 bg-blue-400 rounded-md w-full justify-center'>
             Dictionary
           </Link>
@@ -64,7 +58,7 @@ export default function Home(width, autoplay, src) {
           </Link>
         </div>
         {/* merriam-webster attribute */}
-        <div className='md:hidden w-full flex justify-center items-center gap-3 px-6 mt-auto h-64'>
+        <div className='md:hidden mx-6 mt-20 flex justify-center items-center gap-3 px-4 py-3 bg-neutral-800/30 rounded-lg'>
           <div>
             <Image src='/Merriam-Webster_logo.svg.png' alt='merriam-webster' width={125} height={125} />
           </div>
