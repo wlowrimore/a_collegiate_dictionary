@@ -15,7 +15,7 @@ const Modal = ({ isOpen, onClose }) => {
     <>
       {isOpen && (
         <div className='w-screen h-screen absolute top-0 left-0 flex flex-col items-center justify-center bg-neutral-800/90'>
-          <form className='relative bg-neutral-800 border-2 border-neutral-500 rounded-lg p-10'>
+          <form className='relative bg-neutral-800 border-2 border-neutral-500 rounded-lg p-10 mx-2'>
             <h3 className='text-2xl mt-2 mb-16 text-neutral-300'>Describe your issue.</h3>
             <div className='flex flex-col space-y-8'>
               <div className='flex gap-4'>
